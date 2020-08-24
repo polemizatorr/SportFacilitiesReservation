@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/damian/EngeneerApplictation/SportObjectReservation/SportObjectsReservationSystem/SportObjectsReservationSystem.csproj": {}
+  },
+  "projects": {
+    "/home/damian/EngeneerApplictation/SportObjectReservation/SportObjectsReservationSystem/SportObjectsReservationSystem.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/damian/EngeneerApplictation/SportObjectReservation/SportObjectsReservationSystem/SportObjectsReservationSystem.csproj",
+        "projectName": "SportObjectsReservationSystem",
+        "projectPath": "/home/damian/EngeneerApplictation/SportObjectReservation/SportObjectsReservationSystem/SportObjectsReservationSystem.csproj",
+        "packagesPath": "/home/damian/.nuget/packages/",
+        "outputPath": "/home/damian/EngeneerApplictation/SportObjectReservation/SportObjectsReservationSystem/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/damian/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.103/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
