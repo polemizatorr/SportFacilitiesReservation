@@ -6,16 +6,31 @@
     <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_SportObjectsReservationSystem.2142119137.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p=".gitignore" t="Include" />
       <e p="Controllers" t="Include">
         <e p="HomeController.cs" t="Include" />
       </e>
+      <e p="Data" t="Include">
+        <e p="SportObjectsReservationContext.cs" t="Include" />
+      </e>
+      <e p="Migrations" t="Include">
+        <e p="20200824155030_InitialCreate.Designer.cs" t="Include" />
+        <e p="20200824155030_InitialCreate.cs" t="Include" />
+        <e p="SportObjectsReservationContextModelSnapshot.cs" t="Include" />
+      </e>
       <e p="Models" t="Include">
+        <e p="Date.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
+        <e p="Message.cs" t="Include" />
+        <e p="Reservation.cs" t="Include" />
+        <e p="SportObject.cs" t="Include" />
+        <e p="User.cs" t="Include" />
       </e>
       <e p="Program.cs" t="Include" />
       <e p="Properties" t="Include">
         <e p="launchSettings.json" t="Include" />
       </e>
+      <e p="SportObjectsReservation.db" t="Include" />
       <e p="SportObjectsReservationSystem.csproj" t="IncludeRecursive" />
       <e p="SportObjectsReservationSystem.sln" t="IncludeFlat" />
       <e p="Startup.cs" t="Include" />
