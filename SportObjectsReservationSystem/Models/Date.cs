@@ -10,6 +10,8 @@ namespace SportObjectsReservationSystem.Models
         
         public int IdObject { get; set; }
         
+        public virtual SportObject Object { set; get; }
+        
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         

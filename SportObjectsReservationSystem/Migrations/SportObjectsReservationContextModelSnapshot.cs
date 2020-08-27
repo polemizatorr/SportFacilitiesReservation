@@ -34,10 +34,15 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<int>("NoParticipants")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ObjectId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ObjectId");
 
                     b.ToTable("Dates");
                 });
@@ -57,7 +62,17 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<int>("IdTo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UserFromId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("UserToId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserFromId");
+
+                    b.HasIndex("UserToId");
 
                     b.ToTable("Messages");
                 });
@@ -71,13 +86,23 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<bool>("Acceptance")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("DateId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("IdDate")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DateId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -129,6 +154,35 @@ namespace SportObjectsReservationSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SportObjectsReservationSystem.Models.Date", b =>
+                {
+                    b.HasOne("SportObjectsReservationSystem.Models.SportObject", "Object")
+                        .WithMany()
+                        .HasForeignKey("ObjectId");
+                });
+
+            modelBuilder.Entity("SportObjectsReservationSystem.Models.Message", b =>
+                {
+                    b.HasOne("SportObjectsReservationSystem.Models.User", "UserFrom")
+                        .WithMany()
+                        .HasForeignKey("UserFromId");
+
+                    b.HasOne("SportObjectsReservationSystem.Models.User", "UserTo")
+                        .WithMany()
+                        .HasForeignKey("UserToId");
+                });
+
+            modelBuilder.Entity("SportObjectsReservationSystem.Models.Reservation", b =>
+                {
+                    b.HasOne("SportObjectsReservationSystem.Models.Date", "Date")
+                        .WithMany()
+                        .HasForeignKey("DateId");
+
+                    b.HasOne("SportObjectsReservationSystem.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
