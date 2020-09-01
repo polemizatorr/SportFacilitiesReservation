@@ -31,7 +31,7 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<bool>("IsReserved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NoParticipants")
+                    b.Property<int>("MaxParticipants")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ObjectId")

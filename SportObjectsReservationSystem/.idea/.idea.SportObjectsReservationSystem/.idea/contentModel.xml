@@ -8,7 +8,9 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="Controllers" t="Include">
+        <e p="DateController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
+        <e p="ReservationController.cs" t="Include" />
         <e p="SportObjectController.cs" t="Include" />
         <e p="UserController.cs" t="Include" />
       </e>
@@ -16,8 +18,8 @@
         <e p="SportObjectsReservationContext.cs" t="Include" />
       </e>
       <e p="Migrations" t="Include">
-        <e p="20200827090757_InitialCreate.Designer.cs" t="Include" />
-        <e p="20200827090757_InitialCreate.cs" t="Include" />
+        <e p="20200827160912_InitialCreate.Designer.cs" t="Include" />
+        <e p="20200827160912_InitialCreate.cs" t="Include" />
         <e p="SportObjectsReservationContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -37,9 +39,23 @@
       <e p="SportObjectsReservationSystem.sln" t="IncludeFlat" />
       <e p="Startup.cs" t="Include" />
       <e p="Views" t="Include">
+        <e p="Date" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
         <e p="Home" t="Include">
           <e p="Index.cshtml" t="Include" />
           <e p="Privacy.cshtml" t="Include" />
+        </e>
+        <e p="Reservation" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
         </e>
         <e p="Shared" t="Include">
           <e p="Error.cshtml" t="Include" />
@@ -66,6 +82,16 @@
       <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
+      <e p="mono_crash.mem.7680.1.blob" t="Include" />
+      <e p="mono_crash.mem.8034.1.blob" t="Include" />
+      <e p="mono_crash.mem.8246.1.blob" t="Include" />
+      <e p="mono_crash.mem.8478.1.blob" t="Include" />
+      <e p="mono_crash.mem.8690.1.blob" t="Include" />
+      <e p="mono_crash.mem.8904.1.blob" t="Include" />
+      <e p="mono_crash.mem.9085.1.blob" t="Include" />
+      <e p="mono_crash.mem.9270.1.blob" t="Include" />
+      <e p="mono_crash.mem.9447.1.blob" t="Include" />
+      <e p="mono_crash.mem.9874.1.blob" t="Include" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.1" t="Include">

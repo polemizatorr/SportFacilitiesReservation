@@ -8796,7 +8796,7 @@
       "outputPath": "/home/damian/EngeneerApplictation/SportObjectReservation/SportObjectsReservationSystem/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/damian/.nuget/NuGet/NuGet.Config"
+        "/home/damian/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

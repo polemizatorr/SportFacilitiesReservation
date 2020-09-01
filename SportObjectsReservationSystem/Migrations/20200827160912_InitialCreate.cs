@@ -50,7 +50,7 @@ namespace SportObjectsReservationSystem.Migrations
                     ObjectId = table.Column<int>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    NoParticipants = table.Column<int>(nullable: false),
+                    MaxParticipants = table.Column<int>(nullable: false),
                     IsReserved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

@@ -9,7 +9,7 @@ using SportObjectsReservationSystem.Data;
 namespace SportObjectsReservationSystem.Migrations
 {
     [DbContext(typeof(SportObjectsReservationContext))]
-    [Migration("20200827090757_InitialCreate")]
+    [Migration("20200827160912_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<bool>("IsReserved")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NoParticipants")
+                    b.Property<int>("MaxParticipants")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ObjectId")

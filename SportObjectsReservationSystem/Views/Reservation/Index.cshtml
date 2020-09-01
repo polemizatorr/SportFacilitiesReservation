@@ -1,0 +1,93 @@
+@model IEnumerable<SportObjectsReservationSystem.Models.Reservation>
+ 
+@{
+    ViewData["Title"] = "Index";
+}
+ 
+<h1>Reservations</h1>
+ 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.Object.ObjectType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.Object.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.Object.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model =>  model.Date.Object.BuildingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.IsReserved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Acceptance)
+             </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.ObjectType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.BuildingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.IsReserved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Acceptance)
+            </td>
+            
+            
+ 
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

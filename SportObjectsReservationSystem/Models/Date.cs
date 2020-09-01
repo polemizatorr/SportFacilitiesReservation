@@ -18,7 +18,7 @@ namespace SportObjectsReservationSystem.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
         
-        public int NoParticipants { get; set; }
+        public int MaxParticipants { get; set; }
         public bool IsReserved { get; set; }
     }
 }
