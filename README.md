@@ -1,5 +1,5 @@
 # SportFacilitiesReservation
-Appilcation for booking sport object for a specific dates
+Appilcation for booking sport facilities for a specific dates.
 
 System is supposed to show a list of dates available to reserve by user - every date is related with specific facility.
 Information about facilities such as facility kind and adress data will be shown in the list of dates.
