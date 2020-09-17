@@ -1,4 +1,4 @@
-# SportObjectReservation
+# SportFacilitiesReservation
 Appilcation for booking sport object for a specific dates
 
 System is supposed to show a list of dates available to reserve by user - every date is related with specific facility.
