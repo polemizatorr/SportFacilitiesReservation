@@ -9,7 +9,7 @@ using SportObjectsReservationSystem.Data;
 namespace SportObjectsReservationSystem.Migrations
 {
     [DbContext(typeof(SportObjectsReservationContext))]
-    [Migration("20200827160912_InitialCreate")]
+    [Migration("20200901204141_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,9 @@ namespace SportObjectsReservationSystem.Migrations
 
                     b.Property<int>("IdTo")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("UserFromId")
                         .HasColumnType("INTEGER");

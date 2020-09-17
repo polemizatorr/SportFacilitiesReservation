@@ -62,6 +62,9 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<int>("IdTo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Subject")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("UserFromId")
                         .HasColumnType("INTEGER");
 

@@ -74,6 +74,7 @@ namespace SportObjectsReservationSystem.Migrations
                     UserFromId = table.Column<int>(nullable: true),
                     IdTo = table.Column<int>(nullable: false),
                     UserToId = table.Column<int>(nullable: true),
+                    Subject = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
