@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using SportObjectsReservationSystem.Data;
 using SportObjectsReservationSystem.Models;
+using SportObjectsReservationSystem.Cryptology;
 
 namespace SportObjectsReservationSystem.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly SportObjectsReservationContext _context;
@@ -21,6 +24,7 @@ namespace SportObjectsReservationSystem.Controllers
             _context = context;
         }
 
+
         // GET: User
         public async Task<IActionResult> Index()
         {
@@ -28,7 +32,7 @@ namespace SportObjectsReservationSystem.Controllers
         }
 
         // GET: User/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -64,7 +68,7 @@ namespace SportObjectsReservationSystem.Controllers
             {
                 using (var md5Hash = MD5.Create())
                 {
-                    var hash = GetMd5Hash(md5Hash, user.Password);
+                    var hash = Md5.GetMd5Hash(md5Hash, user.Password);
                     user.Password = hash;
                 }
 
@@ -100,7 +104,7 @@ namespace SportObjectsReservationSystem.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Email,Password,IsAdmin")]
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Surname,Email,Password,IsAdmin")]
             User user)
         {
             if (id != user.Id)
@@ -114,7 +118,7 @@ namespace SportObjectsReservationSystem.Controllers
                 {
                     using (var md5Hash = MD5.Create())
                     {
-                        var hash = GetMd5Hash(md5Hash, user.Password);
+                        var hash = Md5.GetMd5Hash(md5Hash, user.Password);
                         user.Password = hash;
                     }
 
@@ -140,7 +144,7 @@ namespace SportObjectsReservationSystem.Controllers
         }
 
         // GET: User/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -168,50 +172,9 @@ namespace SportObjectsReservationSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
-        }
-
-        // Md5 static methods
-        static string GetMd5Hash(MD5 md5Hash, string input)
-        {
-
-            // Convert the input string to a byte array and compute the hash.
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            // Create a new Stringbuilder to collect the bytes
-            // and create a string.
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Loop through each byte of the hashed data
-            // and format each one as a hexadecimal string.
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            // Return the hexadecimal string.
-            return sBuilder.ToString();
-        }
-
-        // Verify a hash against a string.
-        static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
-        {
-            // Hash the input.
-            string hashOfInput = GetMd5Hash(md5Hash, input);
-
-            // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-            if (0 == comparer.Compare(hashOfInput, hash))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
