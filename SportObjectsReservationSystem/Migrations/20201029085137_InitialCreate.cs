@@ -178,22 +178,15 @@ namespace SportObjectsReservationSystem.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    IdFrom = table.Column<int>(nullable: false),
-                    UserFromId = table.Column<string>(nullable: true),
-                    IdTo = table.Column<int>(nullable: false),
+                    IdTo = table.Column<string>(nullable: true),
                     UserToId = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true)
+                    Content = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_UserFromId",
-                        column: x => x.UserFromId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Messages_AspNetUsers_UserToId",
                         column: x => x.UserToId,
@@ -232,11 +225,10 @@ namespace SportObjectsReservationSystem.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    IdUser = table.Column<int>(nullable: false),
+                    IdUser = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     IdDate = table.Column<int>(nullable: false),
-                    DateId = table.Column<int>(nullable: true),
-                    Acceptance = table.Column<bool>(nullable: false)
+                    DateId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -296,11 +288,6 @@ namespace SportObjectsReservationSystem.Migrations
                 name: "IX_Dates_ObjectId",
                 table: "Dates",
                 column: "ObjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_UserFromId",
-                table: "Messages",
-                column: "UserFromId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_UserToId",

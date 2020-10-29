@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity;
 using SportObjectsReservationSystem.Services;
 
 
+
 namespace SportObjectsReservationSystem.Controllers
 {
     public class AccountantController : Controller
@@ -39,8 +40,13 @@ namespace SportObjectsReservationSystem.Controllers
             return View();
         }
         
-        public IActionResult Login()
+        public IActionResult Login() 
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+                
             return View();
         }
         
@@ -64,10 +70,10 @@ namespace SportObjectsReservationSystem.Controllers
                     return View();
                 }
 
-                HttpContext.Session.SetString("Email", loginUser.Email.ToString());
+                //HttpContext.Session.SetString("Email", loginUser.Email.ToString());
                 
                 
-                return View("Index");
+                return RedirectToAction("Index", "Accountant");
             }
 
             return View("Login");
@@ -75,6 +81,11 @@ namespace SportObjectsReservationSystem.Controllers
         
         public IActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
             return View();
         }
         

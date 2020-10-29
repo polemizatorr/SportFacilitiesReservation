@@ -188,24 +188,19 @@ namespace SportObjectsReservationSystem.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IdFrom")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdTo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Subject")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserFromId")
+                    b.Property<string>("IdTo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Subject")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserToId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserFromId");
 
                     b.HasIndex("UserToId");
 
@@ -218,17 +213,14 @@ namespace SportObjectsReservationSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Acceptance")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("DateId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("IdDate")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("IdUser")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("IdUser")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
@@ -401,10 +393,6 @@ namespace SportObjectsReservationSystem.Migrations
 
             modelBuilder.Entity("SportObjectsReservationSystem.Models.Message", b =>
                 {
-                    b.HasOne("SportObjectsReservationSystem.Models.User", "UserFrom")
-                        .WithMany()
-                        .HasForeignKey("UserFromId");
-
                     b.HasOne("SportObjectsReservationSystem.Models.User", "UserTo")
                         .WithMany()
                         .HasForeignKey("UserToId");
