@@ -9,7 +9,7 @@ using SportObjectsReservationSystem.Data;
 namespace SportObjectsReservationSystem.Migrations
 {
     [DbContext(typeof(SportObjectsReservationContext))]
-    [Migration("20201029085137_InitialCreate")]
+    [Migration("20201030231551_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
