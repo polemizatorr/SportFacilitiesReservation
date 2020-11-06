@@ -1,6 +1,6 @@
 namespace SportObjectsReservationSystem.Controllers
 {
-    public class MessageController
+    public class UserReservationController
     {
         
     }

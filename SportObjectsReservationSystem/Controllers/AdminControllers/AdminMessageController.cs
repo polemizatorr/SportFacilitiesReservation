@@ -11,18 +11,18 @@ using SportObjectsReservationSystem.Models;
 
 namespace SportObjectsReservationSystem.Controllers
 {
-    public class DateController : Controller
+    public class MessageController : Controller
     {
         private readonly SportObjectsReservationContext _context;
-
-        public DateController(SportObjectsReservationContext context)
+        
+        public MessageController(SportObjectsReservationContext context)
         {
             _context = context;
         }
-
+        
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dates.Include(m=> m.Object).ToListAsync());
+            return View(await _context.Messages.Include(m=> m.UserTo).Include(m=>m.UserFrom).ToListAsync());
         }
         
         public async Task<IActionResult> Details(int? id)
@@ -32,17 +32,17 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
  
-            var date = await _context.Dates.Include(m=>m.Object)
+            var message = await _context.Messages.Include(m=>m.UserTo)
+                .Include(m=>m.UserFrom)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (date == null)
+            if (message == null)
             {
                 return NotFound();
             }
  
-            return View(date);
+            return View(message);
         }
         
-        // GET: Dates/Create
         public IActionResult Create()
         {
             return View();
@@ -53,24 +53,35 @@ namespace SportObjectsReservationSystem.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdObject,StartDate,EndDate,MaxParticipants,IsReserved")] Date date)
+        public async Task<IActionResult> Create([Bind("Id,IdFrom,IdTo,Subject,Content")] Message message)
         {
             if (ModelState.IsValid)
             {
-                var sportObject = _context.SportObjects
-                    .Find(date.IdObject);
+                var userFrom = _context.Users
+                    .Find(message.IdFrom);
 
-                if (sportObject == null)
+                if (userFrom == null)
                 {
                     return NotFound();
                 }
 
-                date.Object = sportObject;
-                _context.Add(date);
+                message.UserFrom = userFrom;
+                
+                var userTo =  _context.Users
+                    .Find(message.IdTo);
+                
+                if (userTo == null)
+                {
+                    return NotFound();
+                }
+
+                message.UserTo = userTo;
+                
+                _context.Add(message);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(date);
+            return View(message);
         }
         
         // GET: SportObject/Edit/5
@@ -81,22 +92,19 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
  
-            var date = await _context.Dates.FindAsync(id);
-            if (date == null)
+            var message = await _context.Messages.FindAsync(id);
+            if (message == null)
             {
                 return NotFound();
             }
-            return View(date);
+            return View(message);
         }
         
-        // POST: SportObject/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdObject,Object,StartDate,EndDate,MaxParticipants,IsReserved")] Date date)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdFrom,IdTo,Subject,Content")] Message message)
         {
-            if (id != date.Id)
+            if (id != message.Id)
             {
                 return NotFound();
             }
@@ -105,12 +113,32 @@ namespace SportObjectsReservationSystem.Controllers
             {
                 try
                 {
-                    _context.Update(date);
+                    var userFrom = _context.Users
+                        .Find(message.IdFrom);
+
+                    if (userFrom == null)
+                    {
+                        return NotFound();
+                    }
+
+                    message.UserFrom = userFrom;
+                
+                    var userTo =  _context.Users
+                        .Find(message.IdTo);
+                
+                    if (userTo == null)
+                    {
+                        return NotFound();
+                    }
+
+                    message.UserTo = userTo;
+                    
+                    _context.Update(message);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DateExists(date.Id))
+                    if (!MessageExists(message.Id))
                     {
                         return NotFound();
                     }
@@ -121,7 +149,7 @@ namespace SportObjectsReservationSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(date);
+            return View(message);
         }
         
         // GET: SportObject/Delete/5
@@ -132,14 +160,14 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
  
-            var date = await _context.Dates
+            var message = await _context.Messages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (date == null)
+            if (message == null)
             {
                 return NotFound();
             }
  
-            return View(date);
+            return View(message);
         }
         
         // POST: SportObject/Delete/5
@@ -147,15 +175,15 @@ namespace SportObjectsReservationSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var date = await _context.Dates.FindAsync(id);
-            _context.Dates.Remove(date);
+            var message = await _context.Messages.FindAsync(id);
+            _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
  
-        private bool DateExists(int id)
+        private bool MessageExists(int id)
         {
-            return _context.Dates.Any(e => e.Id == id);
+            return _context.Messages.Any(e => e.Id == id);
         }
     }
 }

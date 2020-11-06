@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,7 +33,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservations</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Messages</a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <p  class="nav-link text-dark" title="Manage">Logged as: @User.Identity.Name</p>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link text-dark" asp-area="" asp-controller="Accountant" asp-action="Logout">Sign Out</a>
+                            </li>
+                        }
+                        </ul>
                 </div>
             </div>
         </nav>

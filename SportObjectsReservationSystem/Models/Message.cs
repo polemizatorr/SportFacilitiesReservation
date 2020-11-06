@@ -10,6 +10,7 @@ namespace SportObjectsReservationSystem.Models
         public virtual User UserFrom { set; get; }
         public int IdTo { get; set; }
         public virtual User UserTo { set; get; }
+        public string Subject { set; get; }
         public string Content { get; set; }
     }
 }

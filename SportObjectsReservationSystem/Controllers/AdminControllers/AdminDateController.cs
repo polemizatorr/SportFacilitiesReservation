@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SportObjectsReservationSystem.Data;
@@ -11,18 +12,19 @@ using SportObjectsReservationSystem.Models;
 
 namespace SportObjectsReservationSystem.Controllers
 {
-    public class ReservationController : Controller
+    [Authorize]
+    public class DateController : Controller
     {
         private readonly SportObjectsReservationContext _context;
 
-        public ReservationController(SportObjectsReservationContext context)
+        public DateController(SportObjectsReservationContext context)
         {
             _context = context;
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reservations.Include(m=> m.Date).Include(m=>m.Date.Object).Include(m=>m.User).ToListAsync());
+            return View(await _context.Dates.Include(m=> m.Object).ToListAsync());
         }
         
         public async Task<IActionResult> Details(int? id)
@@ -32,66 +34,48 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
  
-            var reservation = await _context.Reservations
-                    .Include(m=>m.Date)
-                    .Include(m=>m.Date.Object)
-                    .Include(m=>m.User)
-                .FirstOrDefaultAsync(m => m.Id == id)
-                ;
-            if (reservation == null)
+            var date = await _context.Dates.Include(m=>m.Object)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (date == null)
             {
                 return NotFound();
             }
  
-            return View(reservation);
+            return View(date);
         }
         
+        // GET: Dates/Create
         public IActionResult Create()
         {
             return View();
         }
- 
-        // POST: SportObject/Create
+        
+        // POST: Dates/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdUser,IdDate,Acceptance")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("Id,IdObject,StartDate,EndDate,MaxParticipants,IsReserved")] Date date)
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Users.Find(reservation.IdUser);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                reservation.User = user;
-                
-                var date = _context.Dates.Find(reservation.IdDate);
-                
-                if (date == null)
-                {
-                    return NotFound();
-                }
+                var sportObject = _context.SportObjects
+                    .Find(date.IdObject);
 
-                var sportObject = _context.SportObjects.Find(date.IdObject);
                 if (sportObject == null)
                 {
                     return NotFound();
                 }
 
                 date.Object = sportObject;
-                
-                reservation.Date = date;
-                
-                
-                _context.Add(reservation);
+                _context.Add(date);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(reservation);
+            return View(date);
         }
         
+        // GET: SportObject/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,12 +83,12 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
  
-            var reservation = await _context.Reservations.FindAsync(id);
-            if (reservation == null)
+            var date = await _context.Dates.FindAsync(id);
+            if (date == null)
             {
                 return NotFound();
             }
-            return View(reservation);
+            return View(date);
         }
         
         // POST: SportObject/Edit/5
@@ -112,9 +96,9 @@ namespace SportObjectsReservationSystem.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdUser,IdDate,Acceptance")] Reservation reservation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdObject,Object,StartDate,EndDate,MaxParticipants,IsReserved")] Date date)
         {
-            if (id != reservation.Id)
+            if (id != date.Id)
             {
                 return NotFound();
             }
@@ -123,36 +107,12 @@ namespace SportObjectsReservationSystem.Controllers
             {
                 try
                 {
-                    var user = _context.Users.Find(reservation.IdUser);
-                    if (user == null)
-                    {
-                        return NotFound();
-                    }
-                    reservation.User = user;
-                
-                    var date = _context.Dates.Find(reservation.IdDate);
-                
-                    if (date == null)
-                    {
-                        return NotFound();
-                    }
-
-                    var sportObject = _context.SportObjects.Find(date.IdObject);
-                    if (sportObject == null)
-                    {
-                        return NotFound();
-                    }
-
-                    date.Object = sportObject;
-                
-                    reservation.Date = date;
-                    
-                    _context.Update(reservation);
+                    _context.Update(date);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReservationExists(reservation.Id))
+                    if (!DateExists(date.Id))
                     {
                         return NotFound();
                     }
@@ -163,7 +123,7 @@ namespace SportObjectsReservationSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(reservation);
+            return View(date);
         }
         
         // GET: SportObject/Delete/5
@@ -174,10 +134,7 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
  
-            var date = await _context.Reservations
-                .Include(m=>m.Date)
-                .Include(m=>m.Date.Object)
-                .Include(m=>m.User)
+            var date = await _context.Dates
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (date == null)
             {
@@ -192,21 +149,15 @@ namespace SportObjectsReservationSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var reservation = await _context.Reservations.FindAsync(id);
-            _context.Reservations.Remove(reservation);
+            var date = await _context.Dates.FindAsync(id);
+            _context.Dates.Remove(date);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
  
-        private bool ReservationExists(int id)
+        private bool DateExists(int id)
         {
-            return _context.Reservations.Any(e => e.Id == id);
+            return _context.Dates.Any(e => e.Id == id);
         }
-        
-        
-        
-        
-        
-        
     }
 }

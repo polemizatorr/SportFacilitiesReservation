@@ -8,18 +8,23 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="Controllers" t="Include">
+        <e p="AccountantController.cs" t="Include" />
         <e p="DateController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
+        <e p="MessageController.cs" t="Include" />
         <e p="ReservationController.cs" t="Include" />
         <e p="SportObjectController.cs" t="Include" />
         <e p="UserController.cs" t="Include" />
+      </e>
+      <e p="Cryptology" t="Include">
+        <e p="Md5.cs" t="Include" />
       </e>
       <e p="Data" t="Include">
         <e p="SportObjectsReservationContext.cs" t="Include" />
       </e>
       <e p="Migrations" t="Include">
-        <e p="20200827160912_InitialCreate.Designer.cs" t="Include" />
-        <e p="20200827160912_InitialCreate.cs" t="Include" />
+        <e p="20201001163258_InitialCreate.Designer.cs" t="Include" />
+        <e p="20201001163258_InitialCreate.cs" t="Include" />
         <e p="SportObjectsReservationContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -30,15 +35,26 @@
         <e p="SportObject.cs" t="Include" />
         <e p="User.cs" t="Include" />
       </e>
+      <e p="ModelsDTO" t="Include">
+        <e p="UserLoginDTO.cs" t="Include" />
+      </e>
       <e p="Program.cs" t="Include" />
       <e p="Properties" t="Include">
         <e p="launchSettings.json" t="Include" />
+      </e>
+      <e p="Services" t="Include">
+        <e p="AccountantService.cs" t="Include" />
       </e>
       <e p="SportObjectsReservation.db" t="Include" />
       <e p="SportObjectsReservationSystem.csproj" t="IncludeRecursive" />
       <e p="SportObjectsReservationSystem.sln" t="IncludeFlat" />
       <e p="Startup.cs" t="Include" />
       <e p="Views" t="Include">
+        <e p="Accountant" t="Include">
+          <e p="Index.cshtml" t="Include" />
+          <e p="Login.cshtml" t="Include" />
+          <e p="Register.cshtml" t="Include" />
+        </e>
         <e p="Date" t="Include">
           <e p="Create.cshtml" t="Include" />
           <e p="Delete.cshtml" t="Include" />
@@ -50,6 +66,13 @@
           <e p="Index.cshtml" t="Include" />
           <e p="Privacy.cshtml" t="Include" />
         </e>
+        <e p="Message" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Delete.cshtml" t="Include" />
+          <e p="Details.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
         <e p="Reservation" t="Include">
           <e p="Create.cshtml" t="Include" />
           <e p="Delete.cshtml" t="Include" />
@@ -60,6 +83,7 @@
         <e p="Shared" t="Include">
           <e p="Error.cshtml" t="Include" />
           <e p="_Layout.cshtml" t="Include" />
+          <e p="_LayoutUserNotLogged.cshtml" t="Include" />
           <e p="_ValidationScriptsPartial.cshtml" t="Include" />
         </e>
         <e p="SportObject" t="Include">
@@ -82,16 +106,10 @@
       <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
-      <e p="mono_crash.mem.7680.1.blob" t="Include" />
-      <e p="mono_crash.mem.8034.1.blob" t="Include" />
-      <e p="mono_crash.mem.8246.1.blob" t="Include" />
-      <e p="mono_crash.mem.8478.1.blob" t="Include" />
-      <e p="mono_crash.mem.8690.1.blob" t="Include" />
-      <e p="mono_crash.mem.8904.1.blob" t="Include" />
-      <e p="mono_crash.mem.9085.1.blob" t="Include" />
-      <e p="mono_crash.mem.9270.1.blob" t="Include" />
-      <e p="mono_crash.mem.9447.1.blob" t="Include" />
-      <e p="mono_crash.mem.9874.1.blob" t="Include" />
+      <e p="mono_crash.mem.4211.1.blob" t="Include" />
+      <e p="mono_crash.mem.4395.1.blob" t="Include" />
+      <e p="mono_crash.mem.4823.1.blob" t="Include" />
+      <e p="mono_crash.mem.5042.1.blob" t="Include" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.1" t="Include">
