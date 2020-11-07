@@ -1,8 +1,39 @@
-@model TModel
+@model IEnumerable<SportObjectsReservationSystem.Models.Message>
+        
+       @{
+           ViewData["Title"] = "My Messages";
+       }
+        
+       <h1>My Messages</h1>
 
-@{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
-}
-
-<h2>title</h2>
+       <table class="table">
+           <thead>
+               <tr>
+                   <th>
+                       @Html.DisplayNameFor(model => model.UserTo.Email)
+                   </th>
+                   <th>
+                       @Html.DisplayNameFor(model => model.Subject)
+                   </th>
+                   <th>
+                       Action
+                   </th>
+                   
+               </tr>
+           </thead>
+           <tbody>
+       @foreach (var item in Model) {
+               <tr>
+                   <td>
+                       @Html.DisplayFor(modelItem => item.UserTo.Email)
+                   </td>
+                   <td>
+                       @Html.DisplayFor(modelItem => item.Subject)
+                   </td>
+                   <td>
+                       <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                   </td>
+               </tr>
+       }
+           </tbody>
+       </table>

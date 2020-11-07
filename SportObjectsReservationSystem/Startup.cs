@@ -33,6 +33,32 @@ namespace SportObjectsReservationSystem
 
         public IConfiguration Configuration { get; }
 
+        public async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+ 
+            string[] roleNames = {"Admin", "User"};
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            foreach (var user in UserManager.Users)
+            {
+                if (user.IsAdmin == true) await UserManager.AddToRoleAsync(user, "Admin");
+                else if (user.IsAdmin == false) await UserManager.AddToRoleAsync(user, "User");
+            }
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -43,6 +69,7 @@ namespace SportObjectsReservationSystem
             services.AddDistributedMemoryCache();
 
             services.AddScoped<AccountantService>();
+            services.AddScoped<AdminUserService>();
             services.AddAuthentication();
 
             
@@ -51,10 +78,12 @@ namespace SportObjectsReservationSystem
                 options.UseSqlite(Configuration.GetConnectionString("SportObjectsReservationContext")));
 
                 services.AddDefaultIdentity<User>()
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<SportObjectsReservationContext>();
                 
                 services.Configure<IdentityOptions>(conf =>
                 {
+                    
                     conf.Password.RequireDigit = false;
                     conf.Password.RequireLowercase = true;
                     conf.Password.RequireUppercase = false;
@@ -71,29 +100,12 @@ namespace SportObjectsReservationSystem
                 services.AddSession(options => {  
                     options.IdleTimeout = TimeSpan.FromMinutes(30);  
                 });
-                
-                
-                
-                services.ConfigureApplicationCookie(options => {
-                    // Cookie settings
-                    options.Cookie.HttpOnly = true;
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                    // If the LoginPath isn't set, ASP.NET Core defaults 
-                    // the path to /Account/Login.
-                    options.LoginPath = "/accountant/Login";
-                    // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
-                    // the path to /Account/AccessDenied.
-                    //options.AccessDeniedPath = "/AccessDenied";
-                    options.SlidingExpiration = true;
-
-                });
-                
-                
+             
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -110,22 +122,17 @@ namespace SportObjectsReservationSystem
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+            
             app.UseAuthentication();
-
-            app.UseSession();
-            app.UseMvc();
-
-
-
-
+            app.UseAuthorization();
+            
+            CreateRoles(serviceProvider).Wait();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Accountant}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using SportObjectsReservationSystem.Data;
 using SportObjectsReservationSystem.Models;
 
-namespace SportObjectsReservationSystem.Controllers
+namespace SportObjectsReservationSystem.Controllers.AdminControllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
    public class SportObjectController : Controller
     {
         private readonly SportObjectsReservationContext _context;

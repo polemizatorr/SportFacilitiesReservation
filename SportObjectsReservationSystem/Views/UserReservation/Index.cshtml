@@ -1,8 +1,83 @@
-@model TModel
+@model IEnumerable<SportObjectsReservationSystem.Models.Date>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Events";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2>Events</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Object.ObjectType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Object.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Object.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Object.BuildingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxParticipants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReserved)
+            </th>
+            <th>
+                Action
+            </th>
+            
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @if (item.IsReserved == false)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Object.ObjectType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Object.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Object.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Object.BuildingNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxParticipants)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReserved)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-area="" asp-controller="UserReservation" asp-action="ReserveDate" asp-route-id="@item.Id">Reserve</a>
+                </td>
+            }
+
+            
+        </tr>
+}
+    </tbody>
+</table>

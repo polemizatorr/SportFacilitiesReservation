@@ -3,18 +3,30 @@
   <component name="ContentModelStore">
     <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_bootstrap-datetimepicker_4.7.14_css_bootstrap-datetimepicker.css" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_bootstrap-datetimepicker_4.7.14_js_bootstrap-datetimepicker.min.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_jquery_1.12.4_jquery.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_moment.js_2.15.1_moment.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_twitter-bootstrap_3.3.7_css_bootstrap.css" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_twitter-bootstrap_3.3.7_js_bootstrap.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_jquery-1.12.4.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_ui_1.12.1_jquery-ui.js" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_SportObjectsReservationSystem.2142119137.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="Controllers" t="Include">
         <e p="AccountantController.cs" t="Include" />
-        <e p="DateController.cs" t="Include" />
+        <e p="AdminControllers" t="Include">
+          <e p="AdminDateController.cs" t="Include" />
+          <e p="AdminMessageController.cs" t="Include" />
+          <e p="AdminReservationController.cs" t="Include" />
+          <e p="AdminSportObjectController.cs" t="Include" />
+          <e p="AdminUserController.cs" t="Include" />
+        </e>
         <e p="HomeController.cs" t="Include" />
-        <e p="MessageController.cs" t="Include" />
-        <e p="ReservationController.cs" t="Include" />
-        <e p="SportObjectController.cs" t="Include" />
-        <e p="UserController.cs" t="Include" />
+        <e p="UserMessageController.cs" t="Include" />
+        <e p="UserReservationController.cs" t="Include" />
       </e>
       <e p="Cryptology" t="Include">
         <e p="Md5.cs" t="Include" />
@@ -23,8 +35,8 @@
         <e p="SportObjectsReservationContext.cs" t="Include" />
       </e>
       <e p="Migrations" t="Include">
-        <e p="20201001163258_InitialCreate.Designer.cs" t="Include" />
-        <e p="20201001163258_InitialCreate.cs" t="Include" />
+        <e p="20201030231551_InitialCreate.Designer.cs" t="Include" />
+        <e p="20201030231551_InitialCreate.cs" t="Include" />
         <e p="SportObjectsReservationContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -44,6 +56,7 @@
       </e>
       <e p="Services" t="Include">
         <e p="AccountantService.cs" t="Include" />
+        <e p="AdminUserService.cs" t="Include" />
       </e>
       <e p="SportObjectsReservation.db" t="Include" />
       <e p="SportObjectsReservationSystem.csproj" t="IncludeRecursive" />
@@ -79,11 +92,11 @@
           <e p="Details.cshtml" t="Include" />
           <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
+          <e p="ReservationActionSuccess.cshtml" t="Include" />
         </e>
         <e p="Shared" t="Include">
           <e p="Error.cshtml" t="Include" />
           <e p="_Layout.cshtml" t="Include" />
-          <e p="_LayoutUserNotLogged.cshtml" t="Include" />
           <e p="_ValidationScriptsPartial.cshtml" t="Include" />
         </e>
         <e p="SportObject" t="Include">
@@ -94,11 +107,21 @@
           <e p="Index.cshtml" t="Include" />
         </e>
         <e p="User" t="Include">
+          <e p="AdminDeleteReject.cshtml" t="Include" />
           <e p="Create.cshtml" t="Include" />
           <e p="Delete.cshtml" t="Include" />
           <e p="Details.cshtml" t="Include" />
-          <e p="Edit.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="UserMessage" t="Include">
+          <e p="Details.cshtml" t="Include" />
+          <e p="UserMessages.cshtml" t="Include" />
+        </e>
+        <e p="UserReservation" t="Include">
+          <e p="Index.cshtml" t="Include" />
+          <e p="ReservationWarning.cshtml" t="Include" />
+          <e p="ReserveDate.cshtml" t="Include" />
+          <e p="UserReservations.cshtml" t="Include" />
         </e>
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
@@ -106,10 +129,10 @@
       <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
-      <e p="mono_crash.mem.4211.1.blob" t="Include" />
-      <e p="mono_crash.mem.4395.1.blob" t="Include" />
-      <e p="mono_crash.mem.4823.1.blob" t="Include" />
-      <e p="mono_crash.mem.5042.1.blob" t="Include" />
+      <e p="mono_crash.mem.2560.1.blob" t="Include" />
+      <e p="mono_crash.mem.2913.1.blob" t="Include" />
+      <e p="mono_crash.mem.2997.1.blob" t="Include" />
+      <e p="mono_crash.mem.3455.1.blob" t="Include" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.1" t="Include">

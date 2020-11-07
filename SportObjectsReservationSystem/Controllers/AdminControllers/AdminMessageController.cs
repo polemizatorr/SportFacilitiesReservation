@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SportObjectsReservationSystem.Data;
 using SportObjectsReservationSystem.Models;
 
-namespace SportObjectsReservationSystem.Controllers
+namespace SportObjectsReservationSystem.Controllers.AdminControllers
 {
+    [Authorize(Roles = "Admin")]
     public class MessageController : Controller
     {
         private readonly SportObjectsReservationContext _context;
@@ -22,7 +24,7 @@ namespace SportObjectsReservationSystem.Controllers
         
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Messages.Include(m=> m.UserTo).Include(m=>m.UserFrom).ToListAsync());
+            return View(await _context.Messages.Include(m=> m.UserTo).ToListAsync());
         }
         
         public async Task<IActionResult> Details(int? id)
@@ -33,7 +35,6 @@ namespace SportObjectsReservationSystem.Controllers
             }
  
             var message = await _context.Messages.Include(m=>m.UserTo)
-                .Include(m=>m.UserFrom)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
@@ -57,17 +58,7 @@ namespace SportObjectsReservationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userFrom = _context.Users
-                    .Find(message.IdFrom);
-
-                if (userFrom == null)
-                {
-                    return NotFound();
-                }
-
-                message.UserFrom = userFrom;
-                
-                var userTo =  _context.Users
+               var userTo =  _context.Users
                     .Find(message.IdTo);
                 
                 if (userTo == null)
@@ -113,16 +104,6 @@ namespace SportObjectsReservationSystem.Controllers
             {
                 try
                 {
-                    var userFrom = _context.Users
-                        .Find(message.IdFrom);
-
-                    if (userFrom == null)
-                    {
-                        return NotFound();
-                    }
-
-                    message.UserFrom = userFrom;
-                
                     var userTo =  _context.Users
                         .Find(message.IdTo);
                 

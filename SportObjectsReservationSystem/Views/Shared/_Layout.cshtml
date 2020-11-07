@@ -11,45 +11,141 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sport Objects Reservation System</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SportObject" asp-action="Index">Sport Objects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Date" asp-action="Index">Dates</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Messages</a>
-                        </li>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
+@if (SignInManager.IsSignedIn(User) && !@User.IsInRole(("Admin")) && !@User.IsInRole(("User")))
+{
+    
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <p  class="nav-link text-dark" title="Manage">Logged as: @User.Identity.Name</p>
-                            </li>
+                                <p> Your system role is not set yet. Please log out and log in again to have your role set. </p>
+                            </li> 
+                                                    
+                                                    
+                            <li class="nav-item">
+                                <p  class="nav-link text-dark" title="Manage">Username: @User.Identity.Name</p>
+                            </li>                                     
                             <li class="nav-item">
                                 <a  class="nav-link text-dark" asp-area="" asp-controller="Accountant" asp-action="Logout">Sign Out</a>
                             </li>
-                        }
                         </ul>
+                    </div>
                 </div>
+            </nav>
+        </header>
+
+}
+
+
+
+@if (SignInManager.IsSignedIn(User) && @User.IsInRole(("Admin")))
+{
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="SportObject" asp-action="Index">Sport Objects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Date" asp-action="Index">Dates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="Index">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <p  class="nav-link text-dark" title="Manage">Logged as: @User.Identity.Name</p>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link texts-dark" asp-area="" asp-controller="Accountant" asp-action="Logout">Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link text-dark" asp-area="" asp-controller="UserReservation" asp-action="Index">Events</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
+}
+
+@if (SignInManager.IsSignedIn(User) && @User.IsInRole(("User")))
+{
+    <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <p  class="nav-link text-dark" title="Manage">Logged as: @User.Identity.Name</p>
+                    </li>                                     
+                    <li class="nav-item">
+                        <a  class="nav-link text-dark" asp-area="" asp-controller="Accountant" asp-action="Logout">Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link text-dark" asp-area="" asp-controller="UserReservation" asp-action="Index">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link text-dark" asp-area="" asp-controller="UserReservation" asp-action="UserReservations">My Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link text-dark" asp-area="" asp-controller="UserMessage" asp-action="UserMessages">My Messages</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+}
+@if (!SignInManager.IsSignedIn(User))
+{
+    <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sport Objects Reservation System</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Accountant" asp-action="Login">Login Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Accountant" asp-action="Register">Register</a>
+                            </li>
+                            
+                            </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+}
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -58,7 +154,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - SportObjectsReservationSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - SportObjectsReservationSystem - All Rights Reserved.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

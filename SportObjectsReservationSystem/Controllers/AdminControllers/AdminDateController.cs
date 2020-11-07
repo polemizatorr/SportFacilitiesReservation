@@ -10,9 +10,9 @@ using Microsoft.Extensions.Logging;
 using SportObjectsReservationSystem.Data;
 using SportObjectsReservationSystem.Models;
 
-namespace SportObjectsReservationSystem.Controllers
+namespace SportObjectsReservationSystem.Controllers.AdminControllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DateController : Controller
     {
         private readonly SportObjectsReservationContext _context;
