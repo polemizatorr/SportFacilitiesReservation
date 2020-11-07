@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,27 +9,33 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using SportObjectsReservationSystem.Data;
 using SportObjectsReservationSystem.Models;
 using SportObjectsReservationSystem.Cryptology;
+using SportObjectsReservationSystem.Services;
 
-namespace SportObjectsReservationSystem.Controllers
+namespace SportObjectsReservationSystem.Controllers.AdminControllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly SportObjectsReservationContext _context;
+        private readonly AdminUserService _service;
 
-        public UserController(SportObjectsReservationContext context)
+        public UserController(SportObjectsReservationContext context, AdminUserService service)
         {
             _context = context;
+            _service = service;
         }
 
 
         // GET: User
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Users.ToListAsync());
+            var users = from item in _context.Users select item;
+
+            return View(users);
         }
 
         // GET: User/Details/5
@@ -66,24 +73,17 @@ namespace SportObjectsReservationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var md5Hash = MD5.Create())
-                {
-                    var hash = Md5.GetMd5Hash(md5Hash, user.Password);
-                    user.Password = hash;
-                }
-
-
-
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                var result = await _service.CreateUser(user.Email, user.Password, user.Name, user.Surname, user.IsAdmin);
+                
+                
                 return RedirectToAction(nameof(Index));
             }
 
             return View(user);
         }
 
-        // GET: User/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+/*
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -99,9 +99,7 @@ namespace SportObjectsReservationSystem.Controllers
             return View(user);
         }
 
-        // POST: User/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Surname,Email,Password,IsAdmin")]
@@ -116,11 +114,7 @@ namespace SportObjectsReservationSystem.Controllers
             {
                 try
                 {
-                    using (var md5Hash = MD5.Create())
-                    {
-                        var hash = Md5.GetMd5Hash(md5Hash, user.Password);
-                        user.Password = hash;
-                    }
+                   
 
                     _context.Update(user);
                     await _context.SaveChangesAsync();
@@ -142,8 +136,13 @@ namespace SportObjectsReservationSystem.Controllers
 
             return View(user);
         }
-
+*/
         // GET: User/Delete/5
+        public IActionResult AdminDeleteReject()
+        {
+            return View();
+        }
+        
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -158,13 +157,18 @@ namespace SportObjectsReservationSystem.Controllers
                 return NotFound();
             }
 
+            if (user.IsAdmin)
+            {
+                return RedirectToAction("AdminDeleteReject");
+            }
+
             return View(user);
         }
 
         // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _context.Users.FindAsync(id);
             _context.Users.Remove(user);

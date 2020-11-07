@@ -40,8 +40,9 @@
                 @Html.DisplayNameFor(model => model.Date.IsReserved)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Acceptance)
-             </th>
+                Action
+            </th>
+            
             
             <th></th>
         </tr>
@@ -76,12 +77,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date.IsReserved)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Acceptance)
-            </td>
-            
-            
- 
+
+            @if (item.Date.IsReserved == false)
+            {
+                <td>
+                    <a asp-action="AcceptReservation" asp-route-id="@item.Id">Accept</a>
+                    <a asp-action="RejectReservation" asp-route-id="@item.Id">Reject</a>
+                    
+                </td>
+            }
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

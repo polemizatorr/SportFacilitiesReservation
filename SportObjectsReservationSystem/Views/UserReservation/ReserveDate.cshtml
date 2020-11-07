@@ -1,8 +1,14 @@
-@model TModel
-
+@model SportObjectsReservationSystem.Models.Reservation
+ 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Details";
 }
+<h1>Reservation</h1>
+ 
+<div>
 
-<h2>title</h2>
+        <br/><br/>
+        <h4>Your Reservation has been successfully created. Now Admin has to accept it.<br/><br/><br/>
+             <a asp-action="Index">Back to Events List</a></h4>
+    
+</div>

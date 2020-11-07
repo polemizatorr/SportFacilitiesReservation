@@ -63,17 +63,18 @@ namespace SportObjectsReservationSystem.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _service.Login(loginUser.Email, loginUser.Password);
+                
                 if (result == null)
                 {
                     ModelState.AddModelError(nameof(loginUser.Email),"Given data doesn't match any user.");
                     ModelState.AddModelError(nameof(loginUser.Password),"Given data doesn't match any user.");
                     return View();
                 }
-
-                //HttpContext.Session.SetString("Email", loginUser.Email.ToString());
                 
                 
-                return RedirectToAction("Index", "Accountant");
+               
+                
+                return RedirectToAction("Index", "Home");
             }
 
             return View("Login");
@@ -103,15 +104,15 @@ namespace SportObjectsReservationSystem.Controllers
                 var result = await _service.Register(user.Email, user.Password, user.Name, user.Surname);
                 if (result == null)
                 {
-                    ModelState.AddModelError(nameof(user.Email),"Given data doesn't match any user.");
-                    ModelState.AddModelError(nameof(user.Password),"Given data doesn't match any user.");
+                    ModelState.AddModelError(nameof(user.Email),"Invalid Input Data.");
+                    ModelState.AddModelError(nameof(user.Password),"Invalid Input Data.");
                     return View();
                 }
 
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction("Login", "Accountant");
             }
             
-            return View();
+            return View("Login");
         }
 
         public async Task<IActionResult> Logout()

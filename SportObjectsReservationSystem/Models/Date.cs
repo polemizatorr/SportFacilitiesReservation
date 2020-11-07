@@ -12,10 +12,12 @@ namespace SportObjectsReservationSystem.Models
         
         public virtual SportObject Object { set; get; }
         
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy HH:mm}")]
         public DateTime StartDate { get; set; }
         
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy HH:mm}")]
         public DateTime EndDate { get; set; }
         
         public int MaxParticipants { get; set; }

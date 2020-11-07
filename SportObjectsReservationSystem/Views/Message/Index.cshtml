@@ -16,14 +16,19 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserFrom.Email)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.UserTo.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Subject)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            
+            <th>
+                Action
+            </th>
+            
         </tr>
     </thead>
     <tbody>
@@ -33,14 +38,15 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserFrom.Email)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.UserTo.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Subject)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

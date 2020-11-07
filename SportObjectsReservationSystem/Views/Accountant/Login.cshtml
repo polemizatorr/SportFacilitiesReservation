@@ -1,10 +1,12 @@
+@using Microsoft.AspNetCore.Identity
 @model SportObjectsReservationSystem.ModelsDTO.UserLoginDTO
-
+@inject SignInManager<User> SignInManager
 @{
     ViewBag.Title = "title";
-    Layout = "_LayoutUserNotLogged";
+    Layout = "_Layout";
     ViewData["Title"] = "Log in";
 }
+
 
 <h2>Log in</h2>
 

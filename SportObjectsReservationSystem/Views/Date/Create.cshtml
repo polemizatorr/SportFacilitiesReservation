@@ -15,14 +15,12 @@
             <div class="form-group">
                 <label asp-for="IdObject" class="control-label"></label>
                 <input asp-for="IdObject" class="form-control" />
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
+                <label asp-for="StartDate" class="control-label" ></label>
+                <input asp-for="StartDate" value="MM/dd/yyyy HH:mm" class="form-control"/>
                 <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
+                <input asp-for="EndDate" value="MM/dd/yyyy HH:mm" class="form-control"/>
                 <label asp-for="MaxParticipants" class="control-label"></label>
                 <input asp-for="MaxParticipants" class="form-control" />
-                <label asp-for="IsReserved" class="control-label"></label>
-                <input asp-for="IsReserved" class="form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>

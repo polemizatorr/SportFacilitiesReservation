@@ -1,8 +1,72 @@
-@model TModel
-
+@model IEnumerable<SportObjectsReservationSystem.Models.Reservation>
+ 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "My Reservations";
 }
+ 
+<h1>My Reservations</h1>
 
-<h2>title</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.Object.ObjectType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.Object.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.Object.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model =>  model.Date.Object.BuildingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date.IsReserved)
+            </th>
+          
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.ObjectType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Object.BuildingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.IsReserved)
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using SportObjectsReservationSystem.Data;
@@ -13,6 +14,7 @@ namespace SportObjectsReservationSystem.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SportObjectsReservationContext _context;
         private readonly IConfiguration _configuration;
         
@@ -20,12 +22,15 @@ namespace SportObjectsReservationSystem.Services
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             SportObjectsReservationContext context,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
         
         public async Task<User> Login(string email, string password)
@@ -36,6 +41,16 @@ namespace SportObjectsReservationSystem.Services
             if (!result.Succeeded) return null;
             
             var user = _context.Users.Single(u => u.Email == email);
+            
+            if (user.IsAdmin)
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(user, "User");
+            }
+            
 
             return user;
         }
@@ -47,14 +62,24 @@ namespace SportObjectsReservationSystem.Services
                 UserName = email,
                 Email = email,
                 Name = name,
-                Surname = surname
+                Surname = surname,
+                IsAdmin = false
+                
             };
 
             var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded) return null;
-
-            await _signInManager.SignInAsync(user, false);
+            
+            
+            if (user.IsAdmin)
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(user, "User");
+            }
 
             return user;
         }
@@ -63,6 +88,6 @@ namespace SportObjectsReservationSystem.Services
         {
             await _signInManager.SignOutAsync(); 
         }
-        
+
     }
 }
